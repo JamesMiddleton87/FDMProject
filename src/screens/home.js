@@ -4,10 +4,27 @@ import {
     SafeAreaView,
     FlatList,
     StyleSheet,
+    Text,
+    View,
+    Image,
     Pressable
   } from 'react-native';
-  import CreateCard from '../components/Card';
-  import { getTopMovies } from '../api/imdbApi';
+import { getTopMovies } from '../api/imdbApi';
+
+const Tile = ({uri, text}) => {
+    return (
+      <View style={styles.container}>
+        <Image 
+          style={styles.image}
+          source={{
+              uri: uri,
+            }}/>
+        <Text style={styles.title}>
+          {text}
+        </Text>
+      </View>
+    );
+  };
 
 const HomeScreen = ({ navigation }) => {
 
@@ -21,16 +38,14 @@ const HomeScreen = ({ navigation }) => {
 
   return (
       <SafeAreaView>
-
         <FlatList 
                 data= {movieList.items}
                 renderItem={({item}) =>
                 <Pressable onPress={() =>
                     navigation.navigate('Details', { id: item.id, title: item.title })}>
-                    <CreateCard
-                        navigtion = {navigation}
-                        title= {item.title}
-                        uri= {item.image}
+                    <Tile style={styles.container}
+                    text= {item.title}
+                    uri= {item.image}
                     />
                 </Pressable>
                 }
@@ -44,13 +59,23 @@ const HomeScreen = ({ navigation }) => {
 
 export const styles = StyleSheet.create({
     carousel:{
-      height: 350,
+      height: 250,
       paddingHorizontal: 5,
       marginTop: 16,
+    },
+    container: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 2.5,
+      width: 160,
     },
     title: {
       fontSize: 12,
       color: 'black'
+    },
+    image: {
+      width: 150,
+      height: 220,
     }
   });
 

@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { SafeAreaView, Text, View, Image } from 'react-native';
 import { getDetails } from '../api/imdbApi';
+import {styles} from './home'
+
 
 DetailsScreen = ({ route }) => {
 
@@ -18,13 +20,13 @@ DetailsScreen = ({ route }) => {
         <SafeAreaView>
             <View>
                 <Image 
-                    style={{ width: 150, height: 220 }}
+                    style={styles.image}
                     source={{uri: movieDetails.image}}/>
                 <Text>
-                    {movieDetails.title}
+                    {movieDetails.fullTitle}
                 </Text>
                 <Text>
-                    {movieDetails.plot}
+                     {movieDetails.plot}
                 </Text>
             </View>
         </SafeAreaView>
